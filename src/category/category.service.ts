@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma.service';
 import { returnCategoryObject } from './return-category.object';
 import { CategoryDto } from './dto/category.dto';
+import { generateSlug } from 'src/utils/generate-slug';
 
 @Injectable()
 export class CategoryService {
@@ -26,7 +27,7 @@ export class CategoryService {
     return category;
   }
 
-  async bySlyg(slug: string) {
+  async bySlug(slug: string) {
     const category = await this.prisma.category.findUnique({
       where: {
         slug
@@ -56,7 +57,7 @@ export class CategoryService {
       },
       data: {
         name: dto.name,
-        slug: dto.name,
+        slug: generateSlug(dto.name),
         image: dto.image
       }
     });
