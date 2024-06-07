@@ -17,6 +17,11 @@ export class ProductController {
     return this.productService.byCategory(categorySlug);
   }
 
+  @Get('by-slug/:slug')
+  async getProductsBySlug(@Param('slug') slug: string) {
+    return this.productService.bySlug(slug);
+  }
+
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post()
